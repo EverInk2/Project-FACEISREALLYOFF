@@ -30,9 +30,9 @@ public class SuspicionMeter : MonoBehaviour
         }
     }
 
-    void IncreaseSuspicion(int amount)
+    public void IncreaseSuspicion(int amount)
     {
-        SuspicionBar.fillAmount += amount;
+        SuspicionBar.fillAmount += (float)amount / 100;
         suspicion += amount;
     } 
 }
