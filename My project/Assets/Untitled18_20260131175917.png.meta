@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6182caac93b6d054e9beb99242805e78
+guid: e50589562ab829648babcb29ffe64cff
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5410592125178850478
-    second: SusBarWImage_0
+      213: 1607416300384900476
+    second: Untitled18_20260131175917_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -152,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SusBarWImage_0
+      name: Untitled18_20260131175917_0
       rect:
         serializedVersion: 2
-        x: 807
-        y: 173
-        width: 770
-        height: 1806
+        x: 313
+        y: 422
+        width: 1331
+        height: 974
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eacafcd0fd8461b40800000000000000
-      internalID: 5410592125178850478
+      spriteID: c755d96db90be4610800000000000000
+      internalID: 1607416300384900476
       vertices: []
       indices: 
       edges: []
@@ -187,7 +187,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SusBarWImage_0: 5410592125178850478
+      Untitled18_20260131175917_0: 1607416300384900476
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
