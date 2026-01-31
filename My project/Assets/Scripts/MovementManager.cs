@@ -237,7 +237,7 @@ public class Movement : MonoBehaviour
                     directions[0] = 0;
                 }
                 currentTime = 0f;
-                //player.GetComponent<PlayerMovement>().Move();
+                player.GetComponent<PlayerMovement>().Move();
                 for (int i = 0; i < npc_Manager.transform.childCount; i++)
                 {
                     npcs[i].GetComponent<NpcMovement>().Move();
@@ -255,7 +255,7 @@ public class Movement : MonoBehaviour
                     directions[1] = 0;
                 }
                 currentTime = 0f;
-                //player.GetComponent<PlayerMovement>().Move();
+                player.GetComponent<PlayerMovement>().Move();
                 for (int i = 0; i < npc_Manager.transform.childCount; i++)
                 {
                     npcs[i].GetComponent<NpcMovement>().Move();
@@ -272,7 +272,7 @@ public class Movement : MonoBehaviour
                     directions[0] = 0;
                 }
                 currentTime = 0f;
-                //player.GetComponent<PlayerMovement>().Move();
+                player.GetComponent<PlayerMovement>().Move();
                 for (int i = 0; i < npc_Manager.transform.childCount; i++)
                 {
                     npcs[i].GetComponent<NpcMovement>().Move();
@@ -289,7 +289,7 @@ public class Movement : MonoBehaviour
                     directions[1] = 0;
                 }
                 currentTime = 0f;
-                //player.GetComponent<PlayerMovement>().Move();
+                player.GetComponent<PlayerMovement>().Move();
                 for (int i = 0; i < npc_Manager.transform.childCount; i++)
                 {
                     npcs[i].GetComponent<NpcMovement>().Move();
