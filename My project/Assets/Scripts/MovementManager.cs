@@ -12,6 +12,9 @@ public class Movement : MonoBehaviour
     public GameObject player;
     public GameObject npc;
 
+    bool xcollisionstrong = false;
+    bool ycollisionstrong = false;
+
     //
     public float moveSpeed = 5f;
     
@@ -20,6 +23,94 @@ public class Movement : MonoBehaviour
     {
         directions = new int[2];
         
+    }
+
+    /*private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("collided");
+    }
+
+    /*private Collision2D OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log("still colliding");
+        //ContactPoint2D[] fContacts = new ContactPoint2D[1];
+        //int Array1Length = collision.GetContacts(fContacts);
+        //print("GetContacts Size 1: " + fContacts[0].point + "Array Length: " + Array1Length);
+
+        if(collision.transform.tag == "obstacle")
+        {
+            Debug.Log("colliding with obstacle");
+            Debug.Log("pointsColliding: " + collision);
+        }
+
+        return 
+    }*/
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Colliding");
+        if (collision.transform.tag == "obstacle")
+        {
+            Debug.Log("colliding with obstacle");
+            foreach (ContactPoint2D contactPoint in collision.contacts)
+            {
+                Vector2 hitpoint = contactPoint.point;
+                Debug.Log(hitpoint);
+                if (Mathf.Abs(hitpoint.x) > Mathf.Abs(hitpoint.y))
+                {
+                    Debug.Log("collision normal has strong horizontal componenet" + Mathf.Sign(hitpoint.x));
+                    xcollisionstrong = true;
+                    
+                }
+                else
+                {
+                    xcollisionstrong = false;
+                }
+
+                if (Mathf.Abs(hitpoint.x) < Mathf.Abs(hitpoint.y))
+                {
+                    Debug.Log("collision normal has strong vertical componenet");
+                    ycollisionstrong = true;
+                }
+                else
+                {
+                    ycollisionstrong = false;
+                }
+
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        Debug.Log("stopped collding");
+        foreach (ContactPoint2D contactPoint in collision.contacts)
+        {
+            Vector2 hitpoint = contactPoint.point;
+            Debug.Log(hitpoint);
+            if (Mathf.Abs(hitpoint.x) > Mathf.Abs(hitpoint.y))
+            {
+                Debug.Log("collision normal has strong horizontal componenet");
+                xcollisionstrong = true;
+                
+            }
+            else
+            {
+                xcollisionstrong = false;
+            }
+
+            if (Mathf.Abs(hitpoint.x) < Mathf.Abs(hitpoint.y))
+            {
+                Debug.Log("collision normal has strong vertical componenet");
+                ycollisionstrong = true;
+            }
+            else
+            {
+                ycollisionstrong = false;
+            }
+
+        }
     }
 
     // Update is called once per frame
