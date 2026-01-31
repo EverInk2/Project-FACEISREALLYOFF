@@ -10,9 +10,13 @@ public class PlayerMovement : MonoBehaviour
 
     private int[] directions;
 
+    //private Physics2D collideer;
+
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //collideer = GetComponent<Physics2D>();
         controller = GetComponent<Movement>();
         targetPos = transform.position;
     }
@@ -32,4 +36,10 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position = Vector3.Lerp(transform.position, targetPos, 5f * Time.deltaTime);
     }
+    /*
+    private void CheckCollision()
+    {
+        collideer.OverlapBox();
+    }
+    */
 }
