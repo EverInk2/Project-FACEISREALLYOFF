@@ -1,10 +1,20 @@
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class PauseMenu : MonoBehaviour
 {
+    public enum MenuOptions
+    {
+        Resume,
+        MainMenu,
+        Quit
+    }
+    
+    [SerializeField] Sprite[] menuSprites;
     bool menuOpen = false;
     public GameObject container;
+    public MenuOptions currentOption = MenuOptions.Resume;
 
     public float menubuffer = 1f;
     public float currentbuffer = 0f;
@@ -26,6 +36,22 @@ public class PauseMenu : MonoBehaviour
         //     menuOpen = false;
         //     currentbuffer = 0f;
         // }
+
+        if(menuOpen)
+        {
+            if(Input.GetAxis("Vertical") > 0 && (int) currentOption > 0)
+            {
+                currentOption--;
+                 
+            }
+            else if(Input.GetAxis("Vertical") < 0 && (int) currentOption < System.Enum.GetNames(typeof(MenuOptions)).Length - 1)
+            {
+                currentOption++;
+            }
+
+        }
+
+
 
         container.SetActive(menuOpen);
         currentbuffer += Time.unscaledDeltaTime;
