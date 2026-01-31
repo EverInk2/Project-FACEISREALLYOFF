@@ -4,7 +4,8 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Wall
+  - obstacle
+  - floor
   layers:
   - Default
   - TransparentFX
@@ -44,3 +45,4 @@ TagManager:
     locked: 0
   m_RenderingLayers:
   - Default
+  - Floor
