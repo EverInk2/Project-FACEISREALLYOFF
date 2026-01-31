@@ -10,7 +10,8 @@ public class Movement : MonoBehaviour
     public float movetimer = 0.5f;
     private float currentTime = 0f;
     public GameObject player;
-    public GameObject npc;
+    public GameObject npc_Manager; 
+    private NpcMovement[] npcs;
 
     //
     public float moveSpeed = 5f;
@@ -19,7 +20,8 @@ public class Movement : MonoBehaviour
     void Start()
     {
         directions = new int[2];
-        
+        npcs = npc_Manager.GetComponentsInChildren<NpcMovement>();
+
     }
 
     // Update is called once per frame
@@ -27,27 +29,45 @@ public class Movement : MonoBehaviour
     {
         if(Input.GetAxis("Horizontal") > 0 && currentTime >= movetimer)
         {
+            
             directions[0] = 1;
             currentTime = 0f;
-            player.GetComponent<PlayerMovement>().Move();  
+            player.GetComponent<PlayerMovement>().Move();
+            for (int i = 0; i < npc_Manager.transform.childCount; i++)
+            {
+                npcs[i].GetComponent<NpcMovement>().Move();
+            }
+
         }
         else if(Input.GetAxis("Vertical") > 0 && currentTime >= movetimer)
         {
             directions[1] = 1;
             currentTime = 0f;
-            player.GetComponent<PlayerMovement>().Move();  
+            player.GetComponent<PlayerMovement>().Move();
+            for (int i = 0; i < npc_Manager.transform.childCount ; i++)
+            {
+                npcs[i].GetComponent<NpcMovement>().Move();
+            }
         }
         else if(Input.GetAxis("Horizontal") < 0 && currentTime >= movetimer)
         {
             directions[0] = -1;
             currentTime = 0f;
-            player.GetComponent<PlayerMovement>().Move();  
+            player.GetComponent<PlayerMovement>().Move();
+            for (int i = 0; i < npc_Manager.transform.childCount; i++)
+            {
+                npcs[i].GetComponent<NpcMovement>().Move();
+            }
         }
         else if(Input.GetAxis("Vertical") < 0 && currentTime >= movetimer)
         {
             directions[1] = -1;
             currentTime = 0f;
-            player.GetComponent<PlayerMovement>().Move();  
+            player.GetComponent<PlayerMovement>().Move();
+            for (int i = 0; i < npc_Manager.transform.childCount; i++)
+            {
+                npcs[i].GetComponent<NpcMovement>().Move();
+            }
         }
         else
         {
