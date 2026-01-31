@@ -19,6 +19,7 @@ public class Movement : MonoBehaviour
     bool ystoppos = false;
     bool xstopneg = false;
     bool ystopneg = false;
+    public bool npcstop = false;
 
     //
     public float moveSpeed = 5f;
@@ -238,11 +239,15 @@ public class Movement : MonoBehaviour
                 }
                 currentTime = 0f;
                 //player.GetComponent<PlayerMovement>().Move();
-                for (int i = 0; i < npc_Manager.transform.childCount; i++)
+                if(!npcstop)
                 {
-                    npcs[i].GetComponent<NpcMovement>().Move();
-                }
+                    for (int i = 0; i < npc_Manager.transform.childCount; i++)
+                    {   
+                        npcs[i].GetComponent<NpcMovement>().Move();
+                    }
 
+                }
+                
             }
             else if (Input.GetAxis("Vertical") > 0 && currentTime >= movetimer)
             {
