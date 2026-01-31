@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity;
 
 
+
 public class NpcMovement : MonoBehaviour
 {
     private int[] directions;
@@ -26,38 +27,53 @@ public class NpcMovement : MonoBehaviour
 
     public void Move()
     {
-        if (patrolPos.x > transform.position.x+1)
+        if (tileOpen)
+        if (Mathf.Abs(patrolPos.x - transform.position.x) >= Mathf.Abs(patrolPos.y - transform.position.y))
         {
-            directions = new int[] { 1, 0 };
-        }
-        else if (patrolPos.x < transform.position.x-1)
-        {
-            directions = new int[] { -1, 0 };
-        }
-        else if (patrolPos.y > transform.position.y+1)
-        {
-            directions = new int[] { 0, 1 };
-        }
-        else if (patrolPos.y < transform.position.y-1)
-        {
-            directions = new int[] { 0, -1 };
+            if (patrolPos.x > transform.position.x+0.5)
+            {
+                directions = new int[] { 1, 0 };
+            }
+            else if (patrolPos.x < transform.position.x-0.5)
+            {
+                directions = new int[] { -1, 0 };
+            }
+            else
+            {
+                directions = new int[] { 0, 0 };
+                GetPos();
+            }
         }
         else
         {
-            directions = new int[] { 0, 0 };
-            GetPos();
+            if (patrolPos.y > transform.position.y + 0.5)
+            {
+                directions = new int[] { 0, 1 };
+            }
+            else if (patrolPos.y < transform.position.y - 0.5)
+            {
+                directions = new int[] { 0, -1 };
+            }
+            else
+            {
+                directions = new int[] { 0, 0 };
+                GetPos();
+            }
         }
+       
+        
         if (tileOpen)
         {
             if ((directions[0] != 0 || directions[1] != 0))
             {
+                
                 targetPos = new Vector3(transform.position.x + directions[0], transform.position.y + directions[1], transform.position.z);
             }
         }
         else
         {
-            targetPos = lastPos;
-            tileOpen = true;
+            
+            
         }
     }
 
@@ -65,6 +81,8 @@ public class NpcMovement : MonoBehaviour
     void Update()
     {
         transform.position = Vector3.Lerp(transform.position, targetPos, 5f * Time.deltaTime);
+        lastPos = transform.position;
+
     }
 
     private void GetPos()
@@ -75,15 +93,27 @@ public class NpcMovement : MonoBehaviour
         } */
 
         Transform[] pos = patrol.GetComponentsInChildren<Transform>();
-        Debug.Log(pos.Length);
         int x =Random.Range(1, pos.Length);
         Debug.Log(x);
         patrolPos = pos[x].position;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "player"|| collision.gameObject.tag == "Enemy")
+        
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("Collided");
+            tileOpen = false;
+            targetPos = lastPos;
+        }
+
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Enemy")
         {
             Debug.Log("Collided");
             tileOpen = false;
