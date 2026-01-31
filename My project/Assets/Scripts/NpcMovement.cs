@@ -5,10 +5,12 @@ using Unity;
 public class NpcMovement : MonoBehaviour
 {
     private int[] directions;
+    private Vector2 lastPos;
     private Vector3 targetPos;
     private Movement controller;
     public GameObject patrol;
     public Vector2 patrolPos;
+    private bool tileOpen;
     
 
 
@@ -16,6 +18,8 @@ public class NpcMovement : MonoBehaviour
     void Start()
     {
         targetPos = transform.position;
+        lastPos = transform.position;
+        tileOpen = true;
         GetPos();
         
     }
@@ -43,9 +47,17 @@ public class NpcMovement : MonoBehaviour
             directions = new int[] { 0, 0 };
             GetPos();
         }
-        if (directions[0] != 0 || directions[1] != 0)
+        if (tileOpen)
         {
-            targetPos = new Vector3(transform.position.x + directions[0], transform.position.y + directions[1], transform.position.z);
+            if ((directions[0] != 0 || directions[1] != 0))
+            {
+                targetPos = new Vector3(transform.position.x + directions[0], transform.position.y + directions[1], transform.position.z);
+            }
+        }
+        else
+        {
+            targetPos = lastPos;
+            tileOpen = true;
         }
     }
 
@@ -71,6 +83,11 @@ public class NpcMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        collision.gameObject.tag = "player";
+        if(collision.gameObject.tag == "player"|| collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("Collided");
+            tileOpen = false;
+        }
+
     }
 }
