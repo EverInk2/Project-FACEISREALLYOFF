@@ -20,7 +20,7 @@ public class PathFindingScript : MonoBehaviour
     {
         
     }
-
+    /*
     private List<int[]> FindPath(Vector2 startPos, Vector2 targetPos)
     {
         transform.position = startPos;
@@ -63,5 +63,5 @@ public class PathFindingScript : MonoBehaviour
                 }
             }
         }
-    }
+    } */
 }
