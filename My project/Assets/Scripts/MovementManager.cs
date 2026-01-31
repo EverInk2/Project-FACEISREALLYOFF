@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -13,8 +14,10 @@ public class Movement : MonoBehaviour
     public GameObject npc_Manager; 
     private NpcMovement[] npcs;
 
-    bool xcollisionstrong = false;
-    bool ycollisionstrong = false;
+    bool xstoppos = false;
+    bool ystoppos = false;
+    bool xstopneg = false;
+    bool ystopneg = false;
 
     //
     public float moveSpeed = 5f;
@@ -51,68 +54,95 @@ public class Movement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
+
         Debug.Log("Colliding");
-        if (collision.transform.tag == "obstacle")
+        
+        Debug.Log("colliding with obstacle");
+        foreach (ContactPoint2D contactPoint in collision.contacts)
         {
-            Debug.Log("colliding with obstacle");
-            foreach (ContactPoint2D contactPoint in collision.contacts)
+            Vector2 hitpoint = contactPoint.point;
+            if(hitpoint.x < 0)
             {
-                Vector2 hitpoint = contactPoint.point;
-                Debug.Log(hitpoint);
-                if (Mathf.Abs(hitpoint.x) > Mathf.Abs(hitpoint.y))
+                hitpoint.x = Mathf.Ceil(hitpoint.x);
+            }
+            else if(hitpoint.x > 0)
+            {
+                hitpoint.x = Mathf.Floor(hitpoint.x);
+            }
+            if (hitpoint.y < 0)
+            {
+                hitpoint.y = Mathf.Ceil(hitpoint.y);
+            }
+            else if (hitpoint.y > 0)
+            {
+                hitpoint.y = Mathf.Floor(hitpoint.y);
+            }
+            Debug.Log(hitpoint.x);
+            Debug.Log(player.transform.position.x);
+            if (Mathf.Abs(hitpoint.x) > Mathf.Abs(hitpoint.y))
+            {
+
+                Debug.Log("collision normal has strong horizontal componenet");
+                if (hitpoint.x > player.transform.position.x)
                 {
-                    Debug.Log("collision normal has strong horizontal componenet" + Mathf.Sign(hitpoint.x));
-                    xcollisionstrong = true;
+                    xstoppos = true;
                     
+                    Debug.Log("xsp t");
                 }
                 else
                 {
-                    xcollisionstrong = false;
+                    xstoppos = false;
+                }
+                if (hitpoint.x < player.transform.position.x)
+                {
+
+                    xstopneg = true;
+                    Debug.Log("xsp f");
+                }
+                else
+                {
+                    xstopneg = false;
+                }
+            }
+
+
+            if (Mathf.Abs(hitpoint.x) < Mathf.Abs(hitpoint.y))
+            {
+                Debug.Log("collision normal has strong vertical componenet");
+                if (hitpoint.y > player.transform.position.y)
+                {
+                    ystoppos = true;
+                    Debug.Log("ysp t");
+                }
+                else
+                {
+                    ystoppos = false;
                 }
 
-                if (Mathf.Abs(hitpoint.x) < Mathf.Abs(hitpoint.y))
+
+                if (hitpoint.y < player.transform.position.y)
                 {
-                    Debug.Log("collision normal has strong vertical componenet");
-                    ycollisionstrong = true;
+                    ystopneg = true;
+                    Debug.Log("ysn t");
                 }
                 else
                 {
-                    ycollisionstrong = false;
+                    ystopneg = false;
                 }
+
 
             }
+
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        
         Debug.Log("stopped collding");
-        foreach (ContactPoint2D contactPoint in collision.contacts)
-        {
-            Vector2 hitpoint = contactPoint.point;
-            Debug.Log(hitpoint);
-            if (Mathf.Abs(hitpoint.x) > Mathf.Abs(hitpoint.y))
-            {
-                Debug.Log("collision normal has strong horizontal componenet");
-                xcollisionstrong = true;
-                
-            }
-            else
-            {
-                xcollisionstrong = false;
-            }
+        
 
-            if (Mathf.Abs(hitpoint.x) < Mathf.Abs(hitpoint.y))
-            {
-                Debug.Log("collision normal has strong vertical componenet");
-                ycollisionstrong = true;
-            }
-            else
-            {
-                ycollisionstrong = false;
-            }
-
-        }
     }
 
     // Update is called once per frame
@@ -120,8 +150,14 @@ public class Movement : MonoBehaviour
     {
         if(Input.GetAxis("Horizontal") > 0 && currentTime >= movetimer)
         {
-            
-            directions[0] = 1;
+            if(!xstoppos)
+            {
+                directions[0] = 1;
+            }
+            else
+            {
+                directions[0] = 0;
+            }
             currentTime = 0f;
             player.GetComponent<PlayerMovement>().Move();
             for (int i = 0; i < npc_Manager.transform.childCount; i++)
@@ -132,7 +168,14 @@ public class Movement : MonoBehaviour
         }
         else if(Input.GetAxis("Vertical") > 0 && currentTime >= movetimer)
         {
-            directions[1] = 1;
+            if (!ystoppos)
+            {
+                directions[1] = 1;
+            }
+            else
+            {
+                directions[1] = 0;
+            }
             currentTime = 0f;
             player.GetComponent<PlayerMovement>().Move();
             for (int i = 0; i < npc_Manager.transform.childCount ; i++)
@@ -142,7 +185,14 @@ public class Movement : MonoBehaviour
         }
         else if(Input.GetAxis("Horizontal") < 0 && currentTime >= movetimer)
         {
-            directions[0] = -1;
+            if (!xstopneg)
+            {
+                directions[0] = -1;
+            }
+            else
+            {
+                directions[0] = 0;
+            }
             currentTime = 0f;
             player.GetComponent<PlayerMovement>().Move();
             for (int i = 0; i < npc_Manager.transform.childCount; i++)
@@ -152,7 +202,14 @@ public class Movement : MonoBehaviour
         }
         else if(Input.GetAxis("Vertical") < 0 && currentTime >= movetimer)
         {
-            directions[1] = -1;
+            if (!ystopneg)
+            {
+                directions[1] = -1;
+            }
+            else
+            {
+                directions[1] = 0;
+            }
             currentTime = 0f;
             player.GetComponent<PlayerMovement>().Move();
             for (int i = 0; i < npc_Manager.transform.childCount; i++)
