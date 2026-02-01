@@ -7,9 +7,15 @@ public class PathFindingScript : MonoBehaviour
     private List<int[]> path;
     private int[] directions;
     private Vector2 lastPos;
+    private Vector2 moving;
     private bool blocked;
+    public GameObject walls;
+    private Collider2D[] wallColliders;
+    private RaycastHit2D[] results = new RaycastHit2D[3];
+    int castCheck=0;
+    ContactFilter2D contactFilter = new ContactFilter2D();
     
-    
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,7 +24,12 @@ public class PathFindingScript : MonoBehaviour
         directions = new int[] { 0, 0 };
         blocked = false;
         transform.position = new Vector3(0, 0, 0);
+        wallColliders = walls.GetComponentsInChildren<Collider2D>();
         
+        //contactFilter.NoFilter();
+        contactFilter = new ContactFilter2D();
+        contactFilter.useTriggers = true;
+        Debug.Log(contactFilter.isFiltering);
     }
 
     // Update is called once per frame
@@ -86,18 +97,36 @@ public class PathFindingScript : MonoBehaviour
                 }
             }
 
-            lastPos = this.gameObject.transform.position;
-            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x + directions[0], this.gameObject.transform.position.y + directions[1], 0);
-            //Debug.Log("Moved to: (" + this.gameObject.transform.position.x + ", " + this.gameObject.transform.position.y + ")");
-            if (gameObject.GetComponent<Collider2D>().IsTouchingLayers(1))
+            castCheck = gameObject.GetComponent<Collider2D>().Cast(new Vector2(directions[0], directions[1]),contactFilter, results, 1f, true);
+            Debug.Log("castCheck: " + castCheck);
+            for (int i = 0; i < castCheck; i++)
             {
-                blocked = true;
+                Debug.Log("Hit: " + results[i].collider.name);
             }
-            else 
-            { 
-                blocked = false; 
+
+            lastPos = this.gameObject.transform.position;
+            this.gameObject.transform.position = new Vector2(this.gameObject.transform.position.x + directions[0], this.gameObject.transform.position.y + directions[1]);
+            
+
+            //Debug.Log("Moved to: (" + this.gameObject.transform.position.x + ", " + this.gameObject.transform.position.y + ")");
+            
+            for (int i = 0; i < wallColliders.Length; i++)
+            {
+                if (this.gameObject.GetComponent<Collider2D>().IsTouching(wallColliders[i]))
+                {
+                    blocked = true;
+                    Debug.Log("Blocked");
+                    break;
+                    
+                }
+                else
+                {
+                    blocked = false;
+                    //Debug.Log("Not blocked");
+                }
             }
-                Debug.Log("Blocked status: " + blocked);
+             
+               
             if (blocked)
             {
                 this.gameObject.transform.position = lastPos;
@@ -220,6 +249,9 @@ public class PathFindingScript : MonoBehaviour
         Debug.Log("returning JackAll");
         return null;
     }
+
+
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
