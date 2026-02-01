@@ -21,6 +21,7 @@ public class SuspicionMeter : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        enemyDetection = GetComponent<EnemyDetection>();
         //Suspicion is empty, no bar fill, no time spent 
         SuspicionBar.fillAmount = 0;
         timeSpent = 0f;
