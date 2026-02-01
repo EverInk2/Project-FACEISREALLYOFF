@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         directions = controller.GetDirections();
         endPos.x = Mathf.Round(endPos.x);
         endPos.y = Mathf.Round(endPos.y);
-
+        //aatransform.position = endPos;
         //transform.position += new Vector3(directions[0], directions[1], 0);
 
     }
