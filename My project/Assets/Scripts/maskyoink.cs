@@ -11,6 +11,7 @@ public enum masks
 }
 public class maskyoink : MonoBehaviour
 {
+    SuspicionMeter meter;
     masks mask = masks.JOHNNY;
     GameObject player; 
     GameObject[] npcs;
@@ -19,7 +20,8 @@ public class maskyoink : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindWithTag("player");
+        player = GameObject.FindWithTag("Player");
+        meter = new SuspicionMeter();
     }
 
     // Update is called once per frame
@@ -29,6 +31,7 @@ public class maskyoink : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             AssumeIdentity();   
+
         }
         yoinkCD -= Time.deltaTime;
     }
@@ -68,25 +71,28 @@ public class maskyoink : MonoBehaviour
             return;
         }
 
+        //redo CD
         yoinkCD = 5;
-        Debug.Log("activated");
+        //Debug.Log("activated");
 
 
-        //to be implemented when sprites are ready - rn it doesn't do sit
-
+        //kirby transform
         player.GetComponent<SpriteRenderer>().sprite = npc.GetComponent<SpriteRenderer>().sprite;
         if(player.GetComponent<SpriteRenderer>().color != null)
         {
             player.GetComponent<SpriteRenderer>().color = npc.GetComponent<SpriteRenderer>().color;
         }
-        GameObject.Destroy(npc);
+
         
+
+        
+        //assign mask enum to johnny
         string look = player.GetComponent<SpriteRenderer>().sprite.ToString().ToLower().Trim();
         string[] looks = look.Split(" ");
         look = looks[0];
         Debug.Log("look is: "+ look);
 
-        switch (look) //passes in "circle"
+        switch (look) //passes in "circle" MAKE SURE TO CHANGE WHEN WE GET THE SCRIPTS ON
         {
             case "circle":
                 mask = masks.angry;
@@ -106,5 +112,9 @@ public class maskyoink : MonoBehaviour
         //    case 
         //        break;
         //}
+        //kill enemy
+        //doesn't work because enemyEliminated calls for an object, not a gameobject
+
+        meter.EnemyEliminated(npc);
     }
 }
