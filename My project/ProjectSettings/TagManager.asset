@@ -8,7 +8,7 @@ TagManager:
   - floor
   - Enemy
   - player
-  - npc
+  - GridControl
   layers:
   - Default
   - TransparentFX

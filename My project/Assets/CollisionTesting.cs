@@ -22,10 +22,15 @@ public class CollisionTesting : MonoBehaviour
 
         Debug.Log("I hit something!");
     }
-    
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log("I hit something!");
+    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         Debug.Log("I hit something!");
     }
+
+
 }
