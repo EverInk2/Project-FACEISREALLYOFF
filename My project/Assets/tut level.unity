@@ -2278,6 +2278,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8307550312859655934, guid: 68a6bff0b296dc94cbe5cfdc019a6acf, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8307550312859655934, guid: 68a6bff0b296dc94cbe5cfdc019a6acf, type: 3}
       propertyPath: movetimer
       value: 0.5
       objectReference: {fileID: 0}
@@ -2745,7 +2749,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!114 &2065837945
 MonoBehaviour:
@@ -2754,7 +2758,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065837933}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79e627eb5e49c4149900501dcc6cc50e, type: 3}
   m_Name: 
