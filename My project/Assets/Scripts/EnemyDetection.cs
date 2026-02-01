@@ -4,7 +4,7 @@ public class EnemyDetection : MonoBehaviour
 {
     private float detectionRadius = 3f;
     private float FOVAngle = 90f;
-    private Transform player;
+    public Transform player;
     public bool playerDetected;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
