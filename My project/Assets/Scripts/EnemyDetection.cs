@@ -10,7 +10,7 @@ public class EnemyDetection : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindWithTag("Player").transform;
+        player = GameObject.FindWithTag("player").transform;
     }
 
     // Update is called once per frame
