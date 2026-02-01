@@ -33,13 +33,13 @@ public class PathFindingScript : MonoBehaviour
         this.gameObject.transform.position = startPos;
         while (Mathf.Abs(targetPos.x - this.gameObject.transform.position.x) > 0.8 || Mathf.Abs(targetPos.y - this.gameObject.transform.position.y) > 0.8)
         {
-            Debug.Log ("got in the while loop");
+            //Debug.Log ("got in the while loop");
             if (Mathf.Abs(targetPos.x - this.gameObject.transform.position.x) >= Mathf.Abs(targetPos.y - this.gameObject.transform.position.y))
             {
-                Debug.Log ("Going x direction");
+                //Debug.Log ("Going x direction");
                 if (targetPos.x > this.gameObject.transform.position.x + 0.5)
                 {
-                    Debug.Log("right");
+                    //Debug.Log("right");
                     directions[0] = 1;
                     directions[1] = 0;
                     path.Add(new int[] { 1, 0 });
@@ -47,7 +47,7 @@ public class PathFindingScript : MonoBehaviour
                 }
                 else if (targetPos.x < this.gameObject.transform.position.x - 0.5)
                 {
-                    Debug.Log("left");
+                    //Debug.Log("left");
                     directions[0] = -1;
                     directions[1] = 0;
                     path.Add(new int[] { -1, 0 });
@@ -56,41 +56,48 @@ public class PathFindingScript : MonoBehaviour
                 else
                 {
                     directions = new int[] { 0, 0 };
-                    Debug.Log("Good Ending 1");
+                    //Debug.Log("Good Ending 1");
                     return path;
                 }
             }
             else
             {
-                Debug.Log ("Going y direction");
+                //Debug.Log ("Going y direction");
                 if (targetPos.y > this.gameObject.transform.position.y + 0.5)
                 {
                     directions[0] = 0;
                     directions[1] = 1;
                     path.Add(new int[] { 0, 1 });
-                    Debug.Log("up");
+                    //Debug.Log("up");
                 }
                 else if (targetPos.y < this.gameObject.transform.position.y - 0.5)
                 {
                     directions[0] = 0;
                     directions[1] = -1;
                     path.Add(new int[] { 0, -1 });
-                    Debug.Log("down");
+                    //Debug.Log("down");
                 }
                 else
                 {
                     directions[0] = 0;
                     directions[1] = 0; 
-                    Debug.Log("Good Ending 2");
+                    //Debug.Log("Good Ending 2");
                     return path;
                 }
             }
 
             lastPos = this.gameObject.transform.position;
             this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x + directions[0], this.gameObject.transform.position.y + directions[1], 0);
-            Debug.Log("Moved to: (" + this.gameObject.transform.position.x + ", " + this.gameObject.transform.position.y + ")");
-
-            Debug.Log("Blocked status: " + blocked);
+            //Debug.Log("Moved to: (" + this.gameObject.transform.position.x + ", " + this.gameObject.transform.position.y + ")");
+            if (gameObject.GetComponent<Collider2D>().IsTouchingLayers(1))
+            {
+                blocked = true;
+            }
+            else 
+            { 
+                blocked = false; 
+            }
+                Debug.Log("Blocked status: " + blocked);
             if (blocked)
             {
                 this.gameObject.transform.position = lastPos;
@@ -112,6 +119,7 @@ public class PathFindingScript : MonoBehaviour
 
     public List<int[]> SplitPath(Vector2 startPos, Vector2 targetPos, int[] direction)
     {
+        Debug.Log("In SplitPath");
         List<int[]> listP = new List<int[]>();
         List<int[]> listN = new List<int[]>();
         int[] positiveD = new int[2];
@@ -213,25 +221,52 @@ public class PathFindingScript : MonoBehaviour
         return null;
     }
 
-    private void OntriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Obstacle")
+        Debug.Log("Entered trigger");
+        if (collision.gameObject.tag == "obstacle")
         {
             blocked = true;
             Debug.Log("Path is blocked");
         }
     }
-    private void OntriggerStay2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Obstacle")
+        Debug.Log("Staying in trigger");
+        if (collision.gameObject.tag == "obstacle")
         {
             blocked = true;
             Debug.Log("Path is blocked");
         }
     }
 
-    private void OntriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
        blocked = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Entered trigger");
+        if (collision.gameObject.tag == "obstacle")
+        {
+            blocked = true;
+            Debug.Log("Path is blocked");
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Debug.Log("Staying in trigger");
+        if (collision.gameObject.tag == "obstacle")
+        {
+            blocked = true;
+            Debug.Log("Path is blocked");
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        blocked = false;
     }
 }
