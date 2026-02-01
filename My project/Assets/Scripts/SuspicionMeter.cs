@@ -54,19 +54,20 @@ public class SuspicionMeter : MonoBehaviour
     /// <summary>
     /// Changing the mask resets the time interval and suspicion
     /// </summary>
-    internal void ChangedMask()
-    {
-        //Add 30 suspicion if mask changed in front of an enemy
-        if(enemyDetection.playerDetected)
-        {
-            suspicion += 30;
-        }
-        else //Otherwise, reset it back to 0. 
-        {
-            timeSpent = 0f;
-            suspicion = 0;
-        }
-    }
+    //CHANGEDMASK IS REDUNDANT BC OF THE LAYOUT OF THE LEVEL LOL
+    //internal void ChangedMask() 
+    //{
+    //    //Add 30 suspicion if mask changed in front of an enemy
+    //    if(enemyDetection.playerDetected)
+    //    {
+    //        suspicion += 30;
+    //    }
+    //    else //Otherwise, reset it back to 0. 
+    //    {
+    //        timeSpent = 0f;
+    //        suspicion = 0;
+    //    }
+    //}
     /// <summary>
     /// Destroys an enemy and takes their mask
     /// </summary>

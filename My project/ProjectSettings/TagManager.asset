@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - player
   - GridControl
+  - Wall
+  - npc
   layers:
   - Default
   - TransparentFX
