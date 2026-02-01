@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2520952661345850301}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movetimer: 1
   player: {fileID: 5929628029435893059}
-  npc: {fileID: 0}
+  npc_Manager: {fileID: 0}
   moveSpeed: 1
 --- !u!50 &2520952661345850301
 Rigidbody2D:
