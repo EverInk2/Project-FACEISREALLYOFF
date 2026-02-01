@@ -3098,6 +3098,10 @@ PrefabInstance:
       propertyPath: movetimer
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8307550312859655934, guid: 68a6bff0b296dc94cbe5cfdc019a6acf, type: 3}
+      propertyPath: npc_Manager
+      value: 
+      objectReference: {fileID: 7653686576333426253, guid: 2c39f4bd771b54c45a26f4ae88d6c08e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
