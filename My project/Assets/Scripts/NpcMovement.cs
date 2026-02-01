@@ -59,83 +59,7 @@ public class NpcMovement : MonoBehaviour
             path = gameObject.GetComponentInChildren<PathFindingScript>().FindPath(transform.position, patrolPos);
             stepIndex = 0;
         }
-        /* if (tileOpen) 
-         { 
-             if (Mathf.Abs(patrolPos.x - transform.position.x) >= Mathf.Abs(patrolPos.y - transform.position.y))
-             {
-                 if (patrolPos.x > transform.position.x + 0.5)
-                 {
-                     directions = new int[] { 1, 0 };
-                 }
-                 else if (patrolPos.x < transform.position.x - 0.5)
-                 {
-                     directions = new int[] { -1, 0 };
-                 }
-                 else
-                 {
-                     directions = new int[] { 0, 0 };
-                     GetPos();
-                 }
-             }
-             else
-             {
-                 if (patrolPos.y > transform.position.y + 0.5)
-                 {
-                     directions = new int[] { 0, 1 };
-                 }
-                 else if (patrolPos.y < transform.position.y - 0.5)
-                 {
-                     directions = new int[] { 0, -1 };
-                 }
-                 else
-                 {
-                     directions = new int[] { 0, 0 };
-                     GetPos();
-                 }
-             }
-
-         } else
-         {
-
-                 if (patrolPos.x > transform.position.x + 0.5 )
-                 {
-                     directions = new int[] { 1, 0 };
-                 }
-                 else if (patrolPos.x < transform.position.x - 0.5)
-                 {
-                     directions = new int[] { -1, 0 };
-                 }
-                 else if (patrolPos.y > transform.position.y + 0.5)
-                 {
-                     directions = new int[] { 0, 1 };
-                 }
-                 else if (patrolPos.y < transform.position.y - 0.5)
-                 {
-                     directions = new int[] { 0, -1 };
-                 }
-                 else
-                 {
-                     directions = new int[] { 0, 0 };
-                     GetPos();
-                 }
-
-
-         }
-
-
-         if (tileOpen)
-         {
-             if ((directions[0] != 0 || directions[1] != 0))
-             {
-
-                 targetPos = new Vector3(transform.position.x + directions[0], transform.position.y + directions[1], transform.position.z);
-             }
-         }
-         else
-         {
-
-
-         }*/
+        
     }
 
     // Update is called once per frame
@@ -159,10 +83,6 @@ public class NpcMovement : MonoBehaviour
         patrolPos = pos[x].position;
     }
 
-    private void MakePath()
-    {
-
-    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
