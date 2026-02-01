@@ -6,12 +6,17 @@ using System.Collections;
 
 public class SuspicionMeter : MonoBehaviour
 {
-    public UnityEngine.UI.Image SuspicionBar;
+    internal UnityEngine.UI.Image SuspicionBar;
 
-    public int suspicion;
-    public float timeSpent;
-    public float suspicionInterval = 30f;
+    internal int suspicion;
+    internal float timeSpent;
+    internal float suspicionInterval = 30f;
      
+    //publicly accessible property
+    public int Suspicion
+    {
+        get { return suspicion; } set { suspicion = value; }
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,7 +35,7 @@ public class SuspicionMeter : MonoBehaviour
         }
     }
 
-    public void IncreaseSuspicion(int amount)
+    internal void IncreaseSuspicion(int amount)
     {
         SuspicionBar.fillAmount += (float)amount / 100;
         suspicion += amount;
