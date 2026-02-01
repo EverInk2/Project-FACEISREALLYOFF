@@ -8,6 +8,7 @@ TagManager:
   - floor
   - Enemy
   - player
+  - GridControl
   layers:
   - Default
   - TransparentFX
